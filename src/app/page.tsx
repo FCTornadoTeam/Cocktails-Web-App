@@ -1,14 +1,17 @@
-import styles from "./page.module.css";
+import styles from "./page.module.scss";
+
+import { Header } from "@/components/Header/Header";
+import { ResultPage } from "@/components/ResultPage/ResultPage";
+import { SearchBy } from "@/components/SearchBy/SearchBy";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <h1>Hello, this is a Cocktails Web App!</h1>
-      <p>My name is David</p>
-      <p>
-        This is a simple web app that allows you to search for cocktails and
-        view their details.
-      </p>
+    <div>
+      <Header />
+      <div className={styles.mainPage_container}>
+        <SearchBy />
+        <ResultPage />
+      </div>
     </div>
   );
 }
