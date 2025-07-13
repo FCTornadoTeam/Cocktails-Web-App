@@ -1,0 +1,55 @@
+.searchBy_container {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+  padding: 20px;
+}
+
+.types {
+  margin-right: 10px;
+}
+
+.text_input {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 2px solid rgba(0, 0, 0, 1);
+  border-radius: 8px;
+}
+
+.select {
+  width: 86.9%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 2px solid rgba(0, 0, 0, 1);
+  border-radius: 8px;
+}
+
+.buttons_container {
+  display: flex;
+  justify-content: left;
+  gap: 14px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.button_clear {
+  width: 40%;
+  height: 56px;
+  border: 2px solid rgba(0, 0, 0, 1);
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.973);
+}
+
+.button_submit {
+  width: 40%;
+  height: 56px;
+  color: rgba(255, 255, 255, 0.973);
+  border: 2px solid rgba(0, 0, 0, 1);
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 1);
+}
