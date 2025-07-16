@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next export",
-    "predeploy": "npm run build && npm run export",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d out"
   },
   "dependencies": {
@@ -28,14 +27,5 @@
     "gh-pages": "^6.3.0",
     "typescript": "^5"
   },
-  "homepage": "https://SemenVodolazskij.github.io/Cocktails-Web-App",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d out"
-  },
+  "homepage": "https://SemenVodolazskij.github.io/Cocktails-Web-App"
 }
