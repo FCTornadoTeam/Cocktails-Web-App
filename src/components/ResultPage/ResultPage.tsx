@@ -60,7 +60,7 @@ export const ResultPage = () => {
   return (
     <div className={styles.resultPage_container}>
       <h2 className={styles.title}>
-        Search results{" "}
+        Search results 234{" "}
         <span className={styles.itemsCount_text}>{cocktails.length} items</span>
       </h2>
       <div className={styles.cards_grid}>
