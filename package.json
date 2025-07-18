@@ -1,0 +1,31 @@
+{
+  "name": "cocktails_web_app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d out"
+  },
+  "homepage": "https://SemenVodolazskij.github.io/Cocktails-Web-App",
+  "dependencies": {
+    "next": "15.1.8",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sass": "^1.89.2",
+    "tailwind": "^4.0.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^20.17.50",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.1.8",
+    "gh-pages": "^6.3.0",
+    "typescript": "^5"
+  }
+}

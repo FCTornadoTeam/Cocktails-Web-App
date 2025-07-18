@@ -1,0 +1,22 @@
+.resultPage_container {
+  padding: 26px;
+  background-color: rgba(185, 185, 185, 0.288);
+  width: 70%;
+  height: 100%;
+}
+
+.itemsCount_text {
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-left: 12px;
+}
+
+.cards_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(286px, 1fr));
+  gap: 24px;
+  max-width: 950px;
+}
