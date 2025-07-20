@@ -8,7 +8,7 @@ interface CocktailApiResponse {
   drinks: Cocktail[] | null;
 }
 
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<{ id: string }[]> {
   const res = await fetch(
     "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a"
   );
@@ -19,12 +19,6 @@ export async function generateStaticParams() {
   }));
 }
 
-interface CocktailPageProps {
-  params: {
-    id: string;
-  };
-}
-
-export default function Page({ params }: CocktailPageProps) {
+export default function Page({ params }: { params: { id: string } }) {
   return <CocktailDetailsClient id={params.id} />;
 }
