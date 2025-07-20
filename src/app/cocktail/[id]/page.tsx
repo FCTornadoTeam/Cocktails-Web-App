@@ -25,6 +25,6 @@ interface CocktailPageProps {
   };
 }
 
-export default function CocktailPage({ params }: CocktailPageProps) {
+export default function Page({ params }: CocktailPageProps) {
   return <CocktailDetailsClient id={params.id} />;
 }
