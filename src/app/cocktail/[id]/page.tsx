@@ -19,6 +19,11 @@ export async function generateStaticParams(): Promise<{ id: string }[]> {
   }));
 }
 
-export default function Page({ params }: { params: { id: string } }) {
-  return <CocktailDetailsClient id={params.id} />;
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  return <CocktailDetailsClient id={id} />;
 }
