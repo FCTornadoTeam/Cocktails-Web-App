@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d out"
+    "deploy": "npm run predeploy && gh-pages -d out"
   },
   "homepage": "https://SemenVodolazskij.github.io/Cocktails-Web-App",
   "dependencies": {

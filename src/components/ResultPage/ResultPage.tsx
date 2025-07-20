@@ -66,6 +66,7 @@ export const ResultPage = () => {
       <div className={styles.cards_grid}>
         {cocktails.map((cocktail) => (
           <Card
+            id={cocktail.idDrink}
             key={cocktail.idDrink}
             title={cocktail.strDrink}
             image={cocktail.strDrinkThumb}

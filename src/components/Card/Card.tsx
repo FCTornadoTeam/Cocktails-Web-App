@@ -1,14 +1,16 @@
 import Image from "next/image";
 import styles from "./Card.module.scss";
+import Link from "next/link";
 
 type Card = {
+  id?: string;  
   title: string;
   image: string;
   category: string;
   tags?: string | null;
 };
 
-export const Card: React.FC<Card> = ({ title, image, category, tags }) => {
+export const Card: React.FC<Card> = ({ title, image, category, tags, id }) => {
   return (
     <div className={styles.card_container}>
       <div className={styles.card_header}>
@@ -34,9 +36,9 @@ export const Card: React.FC<Card> = ({ title, image, category, tags }) => {
             ))
           : null}
       </div>
-      <a href="#" className={styles.card_details_link}>
+      <Link href={`/cocktail/${id}`} className={styles.card_details_link}>
         <div className={tags ? styles.card_details_button : styles.card_details_button_down}>Details</div>
-      </a>
+      </Link>
     </div>
   );
 };
