@@ -9,12 +9,26 @@ interface CocktailApiResponse {
 }
 
 export async function generateStaticParams(): Promise<{ id: string }[]> {
-  const res = await fetch(
-    "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a"
-  );
-  const data: CocktailApiResponse = await res.json();
+  const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+  const allDrinks: Cocktail[] = [];
 
-  return (data.drinks || []).map((drink: Cocktail) => ({
+  for (const letter of alphabet) {
+    try {
+      const res = await fetch(
+        `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`
+      );
+
+      const data: CocktailApiResponse = await res.json();
+
+      if (data.drinks) {
+        allDrinks.push(...data.drinks);
+      }
+    } catch (error) {
+      console.error(`Data loading error ${letter}:`, error);
+    }
+  }
+
+  return allDrinks.map((drink) => ({
     id: drink.idDrink,
   }));
 }
