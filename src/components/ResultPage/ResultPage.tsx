@@ -11,7 +11,7 @@ export const ResultPage: React.FC<Cocktail> = ({ cocktails }) => {
   return (
     <div className={styles.resultPage_container}>
       <h2 className={styles.title}>
-        Search results 234{" "}
+        Search results {" "}
         <span className={styles.itemsCount_text}>{cocktails.length} items</span>
       </h2>
       <div className={styles.cards_grid}>
