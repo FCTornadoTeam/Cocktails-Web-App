@@ -52,17 +52,14 @@ type Cocktail = {
 
 export const SearchBy = () => {
   const [cocktails, setCocktails] = useState<Cocktail[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [searchType, setSearchType] = useState("ByName");
   const [searchText, setSearchText] = useState("");
-
-  const handleClear = () => {
-    setSearchType("ByName");
-    setSearchText("");
-  };
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedIngredient, setSelectedIngredient] = useState("");
 
   const cachedCocktails = useRef<Cocktail[] | null>(null);
-
   useEffect(() => {
     const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
     const allCocktails: Cocktail[] = [];
@@ -84,16 +81,75 @@ export const SearchBy = () => {
 
       cachedCocktails.current = allCocktails;
       setCocktails(allCocktails);
+      setIsLoading(false);
     };
 
     fetchAllCocktails();
   }, []);
 
-  // const filteredCocktails = cocktails.filter();
+  const getUniqueCategories = (data: Cocktail[]) => {
+    const categories = data.map((drink) => drink.strCategory).filter(Boolean);
+    return Array.from(new Set(categories));
+  };
 
-  if (cocktails.length === 0) {
-    return <div className={styles.loading}>Loading...</div>;
-  }
+  const getUniqueIngredients = (data: Cocktail[]) => {
+    const ingredients: string[] = [];
+    data.forEach((drink) => {
+      for (let i = 1; i <= 15; i++) {
+        const key = `strIngredient${i}`;
+        const ingredient = drink[key as keyof Cocktail];
+        if (ingredient) ingredients.push(ingredient as string);
+      }
+    });
+    return Array.from(new Set(ingredients));
+  };
+
+  const categories = getUniqueCategories(cocktails);
+  const ingredients = getUniqueIngredients(cocktails);
+
+  const handleSubmit = () => {
+    if (!cachedCocktails.current) return;
+
+    let filtered = cachedCocktails.current;
+
+    if (searchType === "ByName" && searchText) {
+      filtered = filtered.filter((drink) =>
+        drink.strDrink.toLowerCase().includes(searchText.toLowerCase())
+      );
+    }
+
+    if (searchType === "ByCategory" && selectedCategory) {
+      filtered = filtered.filter(
+        (drink) => drink.strCategory === selectedCategory
+      );
+    }
+
+    if (searchType === "ByIngredient" && selectedIngredient) {
+      filtered = filtered.filter((drink) =>
+        Object.keys(drink).some(
+          (key) =>
+            key.startsWith("strIngredient") &&
+            drink[key as keyof Cocktail]?.toString().toLowerCase() ===
+              selectedIngredient.toLowerCase()
+        )
+      );
+    }
+
+    if (filtered.length === 0) {
+      setCocktails(filtered);
+      return;
+    }
+
+    setCocktails(filtered);
+  };
+
+  const handleClear = () => {
+    setSearchType("ByName");
+    setSearchText("");
+    setSelectedCategory("");
+    setSelectedIngredient("");
+    setCocktails(cachedCocktails.current || []);
+  };
 
   return (
     <>
@@ -120,8 +176,10 @@ export const SearchBy = () => {
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
+
         <br />
         <br />
+
         <label>
           <input
             type="radio"
@@ -134,11 +192,23 @@ export const SearchBy = () => {
           Category
         </label>
         <br />
-        <select name="category" className={styles.select}>
-          <option value="Alcohol">Alcohol</option>
-          <option value="Coctail">Coctail</option>
-          <option value="ColdDrink">Cold Drink</option>
-        </select>
+        {searchType === "ByCategory" && (
+          <select
+            name="category"
+            className={styles.select}
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >
+            <option value="" disabled>
+              Select category
+            </option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+        )}
         <br />
         <br />
         <label>
@@ -153,21 +223,43 @@ export const SearchBy = () => {
           Ingredient
         </label>
         <br />
-        <select name="ingredient" className={styles.select}>
-          <option value="Lemon">Lemon</option>
-          <option value="Lime">Lime</option>
-          <option value="Watermelon">Watermelon</option>
-        </select>
+        {searchType === "ByIngredient" && (
+          <select
+            name="ingredient"
+            className={styles.select}
+            value={selectedIngredient}
+            onChange={(e) => setSelectedIngredient(e.target.value)}
+          >
+            <option value="" disabled>
+              Select ingredient
+            </option>
+            {ingredients.map((ing) => (
+              <option key={ing} value={ing}>
+                {ing}
+              </option>
+            ))}
+          </select>
+        )}
+
         <br />
         <br />
+
         <div className={styles.buttons_container}>
           <button className={styles.button_clear} onClick={handleClear}>
             Clear
           </button>
-          <button className={styles.button_submit}>Submit</button>
+          <button className={styles.button_submit} onClick={handleSubmit}>
+            Submit
+          </button>
         </div>
       </div>
-      <ResultPage cocktails={cocktails} />
+      {isLoading ? (
+        <div className={styles.loading}>Loading...</div>
+      ) : cocktails.length === 0 ? (
+        <div className={styles.not_found}>No cocktails found.</div>
+      ) : (
+        <ResultPage cocktails={cocktails} />
+      )}
     </>
   );
 };
