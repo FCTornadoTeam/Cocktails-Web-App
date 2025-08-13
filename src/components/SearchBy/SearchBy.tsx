@@ -3,6 +3,8 @@ import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import styles from "./SearchBy.module.scss";
 import { ResultPage } from "../ResultPage/ResultPage";
+import Image from "next/image";
+import noResults from "../../public/no-results.png";
 
 type Cocktail = {
   idDrink: string;
@@ -175,6 +177,7 @@ export const SearchBy = () => {
           className={styles.text_input}
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
+          disabled={searchType !== "ByName"}
         />
 
         <br />
@@ -192,12 +195,13 @@ export const SearchBy = () => {
           Category
         </label>
         <br />
-        {searchType === "ByCategory" && (
+
           <select
             name="category"
             className={styles.select}
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
+            disabled={searchType !== "ByCategory"}
           >
             <option value="" disabled>
               Select category
@@ -208,7 +212,6 @@ export const SearchBy = () => {
               </option>
             ))}
           </select>
-        )}
         <br />
         <br />
         <label>
@@ -223,12 +226,12 @@ export const SearchBy = () => {
           Ingredient
         </label>
         <br />
-        {searchType === "ByIngredient" && (
           <select
             name="ingredient"
             className={styles.select}
             value={selectedIngredient}
             onChange={(e) => setSelectedIngredient(e.target.value)}
+            disabled={searchType !== "ByIngredient"}
           >
             <option value="" disabled>
               Select ingredient
@@ -239,7 +242,6 @@ export const SearchBy = () => {
               </option>
             ))}
           </select>
-        )}
 
         <br />
         <br />
@@ -253,10 +255,20 @@ export const SearchBy = () => {
           </button>
         </div>
       </div>
+
       {isLoading ? (
-        <div className={styles.loading}>Loading...</div>
+        <div className={styles.loader_container}>
+          <div className={styles.loader}></div>
+        </div>
       ) : cocktails.length === 0 ? (
-        <div className={styles.not_found}>No cocktails found.</div>
+        <div className={styles.not_found_container}>
+          <Image
+            src={noResults}
+            alt={"No results"}
+            width={626}
+            height={626}
+          />
+        </div>
       ) : (
         <ResultPage cocktails={cocktails} />
       )}

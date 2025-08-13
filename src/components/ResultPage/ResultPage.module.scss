@@ -20,3 +20,28 @@
   gap: 24px;
   max-width: 950px;
 }
+
+.showMore_container {
+  display: flex;
+  justify-content: center;
+  margin-top: 38px;
+}
+
+.showMore_button {
+  width: 288px;
+  height: 56px;
+  border-radius: 8px;
+  border: none;
+  background-color: rgba(0, 0, 0, 1);
+  cursor: pointer;
+}
+
+.showMore_button_text {
+  color: rgba(255, 255, 255, 1);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+}
